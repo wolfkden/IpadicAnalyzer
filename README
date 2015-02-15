@@ -1,0 +1,30 @@
+/**
+ * Created by Wolfgang Kraske, PhD
+ * Igo Japanese Tokenizer Analysis Project
+ *
+ * Date: 4/21/11
+ * Time: 8:04 PM
+ *
+ */
+
+Docomo Ipadic Analyzer Testing with a Twitter tweet document feed from a file stream and composite document write to
+  a CouchDB instance.
+
+
+These tests are recommended to be run in as a projected in an IntelliJ Idea environment.
+
+IpadicTest.java is the an algorithm to provide a comparison test between a list of Lucene Analyzers
+
+The IpadicCompositeAnalyzer is the analyzer used to develop Japanese tokens at docomo.
+
+The Ipadic Analyzers are included in the igo_ipadic_analyzer.jar file in the lib directory
+
+the ipadic dictionary location is one potential bug to check for installation issues,
+but I do not anticipate this as a problem
+
+
+ ReadGZip.java is an implementation for reading GZip files containing Twitter tweet data and publishing
+ the tweet documents with tokenized text to a CouchDB instance. The location uri of a gzip tweet files
+ and the ektorp connection parameters are necessary to implement this demo.
+
+

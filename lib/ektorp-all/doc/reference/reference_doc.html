@@ -1,0 +1,863 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Ektorp Reference Documentation</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL-NS Stylesheets V1.75.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" title="Ektorp Reference Documentation"><div class="titlepage"><div><div><h1 class="title"><a name="d0e1"></a>Ektorp Reference Documentation</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Henrik</span> <span class="surname">Lundgren</span></h3></div></div><div><p class="releaseinfo">Version: 1.1.1</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#d0e13">1. Overview of Ektorp</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e23">Why Use Ektorp?</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d0e65">2. Obtaining Ektorp</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e68">Maven Artifacts</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e71">Releases</a></span></dt><dt><span class="section"><a href="#d0e82">Snapshots</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e95">Download</a></span></dt><dt><span class="section"><a href="#d0e102">Sample Application</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d0e110">3. Configuration</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e128">HttpClient</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e209">Enabling SSL/TLS Connections</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e218">CouchDbInstance</a></span></dt><dt><span class="section"><a href="#d0e243">CouchDbConnector</a></span></dt><dt><span class="section"><a href="#d0e266">A Minimal Configuration</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d0e273">4. Persistent Classes</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e288">Document Mapped as a POJO</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e311">Non-standard Method Names</a></span></dt><dt><span class="section"><a href="#d0e323">Property Level Annotations</a></span></dt><dt><span class="section"><a href="#d0e330">The CouchDbDocument Support Class</a></span></dt><dt><span class="section"><a href="#d0e343">Example of Various Mappings</a></span></dt><dt><span class="section"><a href="#d0e357">Immutable Object</a></span></dt><dt><span class="section"><a href="#d0e369">Referring Other Documents</a></span></dt><dt><span class="section"><a href="#d0e448">Decoupling Persistent Classes from Annotations</a></span></dt><dt><span class="section"><a href="#d0e463">Custom Serializer</a></span></dt><dt><span class="section"><a href="#d0e470">Custom DocumentAccessor</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e483">Document Mapped as java.util.Map</a></span></dt><dt><span class="section"><a href="#d0e490">Document Mapped as JsonNode</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d0e500">5. Working with Objects</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e508">Create</a></span></dt><dt><span class="section"><a href="#d0e515">Read</a></span></dt><dt><span class="section"><a href="#d0e535">Update</a></span></dt><dt><span class="section"><a href="#d0e547">Delete</a></span></dt><dt><span class="section"><a href="#d0e563">Bulk Operations</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e568">Fetch Multiple Documents With a Single Request</a></span></dt><dt><span class="section"><a href="#d0e575">Creating, Updating and Deleting Documents With a Single
+        Request</a></span></dt><dt><span class="section"><a href="#d0e591">All Or Nothing</a></span></dt><dt><span class="section"><a href="#d0e599">A Note on Resource Usage in Bulk Operations</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#d0e610">6. Repository Support</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e634">Out of the Box CRUD</a></span></dt><dt><span class="section"><a href="#d0e650">Standard Design Document</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e668">Standard Views</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e681">In-line View Definitions</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e709">Loading the View Definition From the classpath</a></span></dt><dt><span class="section"><a href="#d0e723">Auto Updating Views</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e739">Automatic Generation of Design Document
+      and Views</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e784">Resolving Field Name Conflicts</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e796">List, Show and Filter Definitions</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d0e809">7. Attachments</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e814">In-line Attachments</a></span></dt><dt><span class="section"><a href="#d0e823">Create Document and Attachment in one operation</a></span></dt><dt><span class="section"><a href="#d0e830">Add an Attachment to an Existing Document</a></span></dt><dt><span class="section"><a href="#d0e837">Fetch an Attachment</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d0e849">8. Querying</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e859">Query for Objects</a></span></dt><dt><span class="section"><a href="#d0e869">Scalar Queries</a></span></dt><dt><span class="section"><a href="#d0e882">View Result as Raw JSON Stream</a></span></dt><dt><span class="section"><a href="#d0e889">Complex Keys</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d0e904">9. Change Notifications</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e925">Continuous changes</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e937">Managing the Feed</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e944">Snapshots</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d0e954">10. Admin Functions</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e958">Database Replication</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e974">Initiate Replication from CouchDbInstance</a></span></dt><dt><span class="section"><a href="#d0e992">Initiate Replication from CouchDbConnector</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#d0e1013">11. Spring Integration</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1017">HttpClientFactoryBean</a></span></dt><dt><span class="section"><a href="#d0e1030">Bootstrapping the Database</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1043">Declaing the InitialDataLoader in the Application
+        Context</a></span></dt><dt><span class="section"><a href="#d0e1050">Component Scanning</a></span></dt><dt><span class="section"><a href="#d0e1060">DataLoader</a></span></dt></dl></dd></dl></dd></dl></div><div class="list-of-tables"><p><b>List of Tables</b></p><dl><dt>3.1. <a href="#d0e145">org.ektorp.http.StdHttpClient Config Parameters</a></dt></dl></div><div class="chapter" title="Chapter&nbsp;1.&nbsp;Overview of Ektorp"><div class="titlepage"><div><div><h2 class="title"><a name="d0e13"></a>Chapter&nbsp;1.&nbsp;Overview of Ektorp</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e23">Why Use Ektorp?</a></span></dt></dl></div><p>Ektorp is a persistence API that uses <a class="link" href="http://couchdb.apache.org/" target="_top">CouchDB</a> as storage engine.
+    The goal of Ektorp is to combine JPA* like functionality with the
+    simplicity and flexibility that CouchDB provides.</p><p>* Java Persistence API</p><div class="section" title="Why Use Ektorp?"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e23"></a>Why Use Ektorp?</h2></div></div></div><p>Here are some good reasons why you should consider to use Ektorp
+      in your project:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><span class="emphasis"><em>Rich domain models.</em></span> With powerful
+          JSON-object mapping provided by <a class="link" href="http://jackson.codehaus.org/" target="_top">Jackson</a> it is easy
+          to create rich domain models.</p></li><li class="listitem"><p><span class="emphasis"><em>Schemaless comfort</em></span>. As CouchDB is
+          schemaless, the database gets out of the way during application
+          development. With a schemaless database, most adjustments to the
+          database become transparent and automatic.</p></li><li class="listitem"><p><span class="emphasis"><em>Out-of-the-Box CRUD</em></span>. The generic
+          repository support makes it trivial to create persistence
+          classes.</p></li><li class="listitem"><p>Convenient management of views through annotations.</p></li><li class="listitem"><p><span class="emphasis"><em>API Coverage</em></span>. Ektorp has a broad coverage
+          of the CouchDB API. You can perform most tasks like manage
+          documents, perform queries, create, replicate and compact databases
+          with the Ektorp API.</p></li><li class="listitem"><p><span class="emphasis"><em>Active development</em></span>. Ektorp is actively
+          developed and has a growing community.</p></li><li class="listitem"><p><span class="emphasis"><em>Choice of abstraction level</em></span>. From full
+          object-document mapping to raw streams, Ektorp will never stop you
+          if you need to step down an abstraction level.</p></li></ul></div></div></div><div class="chapter" title="Chapter&nbsp;2.&nbsp;Obtaining Ektorp"><div class="titlepage"><div><div><h2 class="title"><a name="d0e65"></a>Chapter&nbsp;2.&nbsp;Obtaining Ektorp</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e68">Maven Artifacts</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e71">Releases</a></span></dt><dt><span class="section"><a href="#d0e82">Snapshots</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e95">Download</a></span></dt><dt><span class="section"><a href="#d0e102">Sample Application</a></span></dt></dl></div><div class="section" title="Maven Artifacts"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e68"></a>Maven Artifacts</h2></div></div></div><div class="section" title="Releases"><div class="titlepage"><div><div><h3 class="title"><a name="d0e71"></a>Releases</h3></div></div></div><p>Core module:</p><pre class="programlisting"><b class="hl-tag" style="color: #000096">&lt;dependency&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;groupId&gt;</b>org.ektorp<b class="hl-tag" style="color: #000096">&lt;/groupId&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;artifactId&gt;</b>org.ektorp<b class="hl-tag" style="color: #000096">&lt;/artifactId&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;version&gt;</b>1.1.0<b class="hl-tag" style="color: #000096">&lt;/version&gt;</b>
+<b class="hl-tag" style="color: #000096">&lt;/dependency&gt;</b></pre><p>Spring support module:</p><pre class="programlisting"><b class="hl-tag" style="color: #000096">&lt;dependency&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;groupId&gt;</b>org.ektorp<b class="hl-tag" style="color: #000096">&lt;/groupId&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;artifactId&gt;</b>org.ektorp.spring<b class="hl-tag" style="color: #000096">&lt;/artifactId&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;version&gt;</b>1.1.0<b class="hl-tag" style="color: #000096">&lt;/version&gt;</b>
+<b class="hl-tag" style="color: #000096">&lt;/dependency&gt;</b></pre></div><div class="section" title="Snapshots"><div class="titlepage"><div><div><h3 class="title"><a name="d0e82"></a>Snapshots</h3></div></div></div><p>For the latest &amp; greatest use the snapshot:</p><pre class="programlisting"><b class="hl-tag" style="color: #000096">&lt;dependency&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;groupId&gt;</b>org.ektorp<b class="hl-tag" style="color: #000096">&lt;/groupId&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;artifactId&gt;</b>org.ektorp<b class="hl-tag" style="color: #000096">&lt;/artifactId&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;version&gt;</b>1.1.1-SNAPSHOT<b class="hl-tag" style="color: #000096">&lt;/version&gt;</b>
+<b class="hl-tag" style="color: #000096">&lt;/dependency&gt;</b>
+
+
+<b class="hl-tag" style="color: #000096">&lt;dependency&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;groupId&gt;</b>org.ektorp<b class="hl-tag" style="color: #000096">&lt;/groupId&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;artifactId&gt;</b>org.ektorp.spring<b class="hl-tag" style="color: #000096">&lt;/artifactId&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;version&gt;</b>1.1.1-SNAPSHOT<b class="hl-tag" style="color: #000096">&lt;/version&gt;</b>
+<b class="hl-tag" style="color: #000096">&lt;/dependency&gt;</b></pre><p>You can find the snapshots at
+        <span class="emphasis"><em>http://oss.sonatype.org/content/repositories/snapshots/</em></span></p><pre class="programlisting"><b class="hl-tag" style="color: #000096">&lt;repositories&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;repository&gt;</b>
+        <b class="hl-tag" style="color: #000096">&lt;id&gt;</b>sonatype-nexus-snapshots<b class="hl-tag" style="color: #000096">&lt;/id&gt;</b>
+        <b class="hl-tag" style="color: #000096">&lt;url&gt;</b>http://oss.sonatype.org/content/repositories/snapshots/<b class="hl-tag" style="color: #000096">&lt;/url&gt;</b>
+        <b class="hl-tag" style="color: #000096">&lt;releases&gt;</b>
+            <b class="hl-tag" style="color: #000096">&lt;enabled&gt;</b>false<b class="hl-tag" style="color: #000096">&lt;/enabled&gt;</b>
+        <b class="hl-tag" style="color: #000096">&lt;/releases&gt;</b>
+        <b class="hl-tag" style="color: #000096">&lt;snapshots&gt;</b>
+            <b class="hl-tag" style="color: #000096">&lt;enabled&gt;</b>true<b class="hl-tag" style="color: #000096">&lt;/enabled&gt;</b>
+        <b class="hl-tag" style="color: #000096">&lt;/snapshots&gt;</b>
+    <b class="hl-tag" style="color: #000096">&lt;/repository&gt;</b>
+<b class="hl-tag" style="color: #000096">&lt;/repositories&gt;</b></pre></div></div><div class="section" title="Download"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e95"></a>Download</h2></div></div></div><p>Ektorp can be downloaded from <a class="link" href="http://code.google.com/p/ektorp/downloads/list" target="_top">http://code.google.com/p/ektorp/downloads/list</a></p></div><div class="section" title="Sample Application"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e102"></a>Sample Application</h2></div></div></div><p>A sample application can be downloaded from the Ektorp site. It is
+      a blog webapp aimed to showcase a basic Ektorp application. You can read
+      more about it in the <a class="link" href="http://code.google.com/p/ektorp/wiki/Tutorial" target="_top">Ektorp
+      tutorial</a>.</p></div></div><div class="chapter" title="Chapter&nbsp;3.&nbsp;Configuration"><div class="titlepage"><div><div><h2 class="title"><a name="d0e110"></a>Chapter&nbsp;3.&nbsp;Configuration</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e128">HttpClient</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e209">Enabling SSL/TLS Connections</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e218">CouchDbInstance</a></span></dt><dt><span class="section"><a href="#d0e243">CouchDbConnector</a></span></dt><dt><span class="section"><a href="#d0e266">A Minimal Configuration</a></span></dt></dl></div><p>CouchDB is represented by two main interfaces in Ektorp:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><span class="emphasis"><em>org.ektorp.CouchDbInstance</em></span> is the handle
+        for the actual CouchDB instance you are connecting to.</p></li><li class="listitem"><p><span class="emphasis"><em>org.ektorp.CouchDbConnector</em></span> is a connection
+        to a specific database residing on the instance above.</p></li></ul></div><p>So, in order to connect to a database in a CouchDB instance, you
+    will need a CouchDbConnector, which needs a CouchDbInstance, which in turn
+    needs a HttpClient.</p><div class="section" title="HttpClient"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e128"></a>HttpClient</h2></div></div></div><p>Ektorp's standard implementation of the HttpClient interface is
+      <span class="emphasis"><em>org.ektorp.http.StdHttpClient</em></span>. It is created
+      through a nested builder class:
+      <span class="emphasis"><em>StdHttpClient.Builder</em></span></p><pre class="programlisting">HttpClient authenticatedHttpClient = <b class="hl-keyword">new</b> StdHttpClient?.Builder()
+                                .host(<b class="hl-string"><i style="color:red">"mychouchdbhost"</i></b>)
+                                .port(<span class="hl-number">4455</span>)
+                                .username(<b class="hl-string"><i style="color:red">"admin"</i></b>)
+                                .password(<b class="hl-string"><i style="color:red">"secret"</i></b>)
+                                .build();</pre><p>StdHttpClient just wraps <a class="link" href="http://hc.apache.org/httpcomponents-client/index.html" target="_top">Apache
+      HttpClient</a> and exposes the following configuration
+      properties:</p><div class="table"><a name="d0e145"></a><p class="title"><b>Table&nbsp;3.1.&nbsp;org.ektorp.http.StdHttpClient Config Parameters</b></p><div class="table-contents"><table summary="org.ektorp.http.StdHttpClient Config Parameters" border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Name</th><th align="center">Default Value</th></tr></thead><tbody><tr><td>host</td><td>localhost</td></tr><tr><td>port</td><td>5984</td></tr><tr><td>username</td><td>&nbsp;</td></tr><tr><td>password</td><td>&nbsp;</td></tr><tr><td>maxConnections</td><td>20</td></tr><tr><td>connectionTimeout</td><td>1000 (ms)</td></tr><tr><td>socketTimeout</td><td>10000 (ms)</td></tr><tr><td>enableSSL</td><td>false</td></tr><tr><td>sslSocketFactory</td><td>The JVM's ssl socket factory will be used by
+              default</td></tr><tr><td>relaxedSSLSettings</td><td>false</td></tr></tbody></table></div></div><br class="table-break"><p>If this is not enough for you, you can always create a
+      <span class="emphasis"><em>org.apache.http.client.HttpClient</em></span> yourself and pass
+      it as a constructor argument to the StdHttpClient.</p><div class="section" title="Enabling SSL/TLS Connections"><div class="titlepage"><div><div><h3 class="title"><a name="d0e209"></a>Enabling SSL/TLS Connections</h3></div></div></div><p>If you want the http client to connector to CouchDB with a
+        SSL/TLS connection, create the client with the parameter enableSSL =
+        true.</p><p>You can bring your own SSLSocketFactory if you have configured
+        special trust stores etc. The factory can be specified through the
+        sslSocketFactory parameter.</p><p>If you are lazy and want the trust manager to trust any host and
+        certificate, relaxed SSL settings can be enabled through the
+        relaxedSSLSettings parameter.</p></div></div><div class="section" title="CouchDbInstance"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e218"></a>CouchDbInstance</h2></div></div></div><p>The standard implementation of the CouchDbInstance interface is
+      <span class="emphasis"><em>org.ektorp.impl.StdCouchDbInstance</em></span>. This interface
+      provides methods for managing databases on the connected CouchDb
+      instance.</p><p>StdCouchDbInstance provides two constructors:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><span class="emphasis"><em>StdCouchDbInstance(HttpClient
+          client)</em></span></p></li><li class="listitem"><p><span class="emphasis"><em>StdCouchDbInstance(HttpClient client,
+          ObjectMapperFactory of)</em></span></p></li></ul></div><p>The second constructor allows you to bring your own
+      ObjectMapperFactory if you want full control on how Jackson is
+      configured.</p><p><span class="emphasis"><em>StdCouchDbInstance</em></span> is thread-safe.</p></div><div class="section" title="CouchDbConnector"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e243"></a>CouchDbConnector</h2></div></div></div><p>The standard implementation of the CouchDbConnector interface is
+      <span class="emphasis"><em>org.ektorp.impl.StdCouchDbConnector</em></span>. This interface
+      provides methods for manipulating documents within a specific
+      database.</p><p>StdCouchDbConnector provides two constructors:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>StdCouchDbConnector(String databaseName, CouchDbInstance
+          dbInstance)</p></li><li class="listitem"><p>StdCouchDbConnector(String databaseName, CouchDbInstance dbi,
+          ObjectMapperFactory of)</p></li></ul></div><p>The third constructor allows you to bring your own
+      ObjectMapperFactory if you want full control on how Jackson is
+      configured.</p><p><span class="emphasis"><em>StdCouchDbConnector</em></span> is thread-safe.</p></div><div class="section" title="A Minimal Configuration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e266"></a>A Minimal Configuration</h2></div></div></div><p>Here's a minimal example configuration that connects to a CouchDB
+      instance on localhost:</p><pre class="programlisting"><b class="hl-keyword">import</b> org.ektorp.*;
+<b class="hl-keyword">import</b> org.ektorp.impl.*;
+<b class="hl-keyword">import</b> org.ektorp.http.*;
+
+...
+
+HttpClient httpClient = <b class="hl-keyword">new</b> StdHttpClient.Builder().build()
+CouchDbInstance dbInstance = <b class="hl-keyword">new</b> StdCouchDbInstance(httpClient);
+<i class="hl-comment" style="color: silver">// if the second parameter is true, the database will be created if it doesn't exists</i>
+CouchDbConnector db = dbInstance.createConnector(<b class="hl-string"><i style="color:red">"my_first_database"</i></b>, true);
+
+<i class="hl-comment" style="color: silver">// go!</i>
+...</pre></div></div><div class="chapter" title="Chapter&nbsp;4.&nbsp;Persistent Classes"><div class="titlepage"><div><div><h2 class="title"><a name="d0e273"></a>Chapter&nbsp;4.&nbsp;Persistent Classes</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e288">Document Mapped as a POJO</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e311">Non-standard Method Names</a></span></dt><dt><span class="section"><a href="#d0e323">Property Level Annotations</a></span></dt><dt><span class="section"><a href="#d0e330">The CouchDbDocument Support Class</a></span></dt><dt><span class="section"><a href="#d0e343">Example of Various Mappings</a></span></dt><dt><span class="section"><a href="#d0e357">Immutable Object</a></span></dt><dt><span class="section"><a href="#d0e369">Referring Other Documents</a></span></dt><dt><span class="section"><a href="#d0e448">Decoupling Persistent Classes from Annotations</a></span></dt><dt><span class="section"><a href="#d0e463">Custom Serializer</a></span></dt><dt><span class="section"><a href="#d0e470">Custom DocumentAccessor</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e483">Document Mapped as java.util.Map</a></span></dt><dt><span class="section"><a href="#d0e490">Document Mapped as JsonNode</a></span></dt></dl></div><p>Ektorp can work with CouchDB documents in three different
+    styles:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>POJO (Plain Old Java Object)</p></li><li class="listitem"><p>java.util.Map&lt;String, Object&gt;</p></li><li class="listitem"><p>JsonNode - provides DOM-style access to JSON-documents</p></li></ul></div><div class="section" title="Document Mapped as a POJO"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e288"></a>Document Mapped as a POJO</h2></div></div></div><p>Ektorp is mainly build for persisting rich domain classes in
+      CouchDB much like classing ORM tools such as Hibernate. This is achieved
+      by using the powerful object mapping features provided by the Jackson
+      JSON library.</p><p>Your classes need to fulfill two requirements in order to be
+      compatible with Ektorp:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>The class must be able to be serialized and deserialized
+          through Jackson's ObjectMapper.</p></li><li class="listitem"><p>The class must define an id field and a revision field through
+          the annotations <span class="emphasis"><em>@JsonProperty("_id")</em></span> and
+          <span class="emphasis"><em>@JsonProperty("_rev").</em></span></p></li></ol></div><p>Here's an example class:</p><pre class="programlisting"><b class="hl-keyword">import</b> org.codehaus.jackson.annotate.*;
+
+<b class="hl-keyword">public</b> <b class="hl-keyword">class</b> Sofa {
+
+        
+        <b class="hl-keyword">private</b> String id;
+        <b class="hl-keyword">private</b> String revision;
+        <b class="hl-keyword">private</b> String color;
+        
+        <i><span class="hl-annotation" style="color: gray">@JsonProperty("_id")</span></i>
+        <b class="hl-keyword">public</b> String getId() {
+                <b class="hl-keyword">return</b> id;
+        }
+
+        <i><span class="hl-annotation" style="color: gray">@JsonProperty("_id")</span></i>
+        <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setId(String s) {
+                id = s;
+        }
+
+        <i><span class="hl-annotation" style="color: gray">@JsonProperty("_rev")</span></i>
+        <b class="hl-keyword">public</b> String getRevision() {
+                <b class="hl-keyword">return</b> revision;
+        }
+
+        <i><span class="hl-annotation" style="color: gray">@JsonProperty("_rev")</span></i>
+        <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setRevision(String s) {
+                revision = s;
+        }
+
+        <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setColor(String s) {
+                color = s;
+        }
+        
+        <b class="hl-keyword">public</b> String getColor() {
+                <b class="hl-keyword">return</b> color;
+        }
+}</pre><div class="section" title="Non-standard Method Names"><div class="titlepage"><div><div><h3 class="title"><a name="d0e311"></a>Non-standard Method Names</h3></div></div></div><p>It is possible to use other method names than shown above as
+        long as the method is annotated with
+        <span class="emphasis"><em>@JsonProperty</em></span>:</p><pre class="programlisting">...
+
+<i><span class="hl-annotation" style="color: gray">@JsonProperty("_id")</span></i>
+<b class="hl-keyword">public</b> String getIdentifikator() {
+    <b class="hl-keyword">return</b> identifikator;
+}
+
+...</pre><p>Methods can have any visibility; public, protected, default or
+        private.</p></div><div class="section" title="Property Level Annotations"><div class="titlepage"><div><div><h3 class="title"><a name="d0e323"></a>Property Level Annotations</h3></div></div></div><p>It is also possible to annotate the fields directly:</p><pre class="programlisting">...
+
+<i><span class="hl-annotation" style="color: gray">@JsonProperty("_id")</span></i>
+<b class="hl-keyword">private</b> String id;
+
+<i><span class="hl-annotation" style="color: gray">@JsonProperty("_rev")</span></i>
+<b class="hl-keyword">private</b> String rev;
+
+...</pre></div><div class="section" title="The CouchDbDocument Support Class"><div class="titlepage"><div><div><h3 class="title"><a name="d0e330"></a>The CouchDbDocument Support Class</h3></div></div></div><p>If you don't mind dependencies on Ektorp in your domain classes
+        you can extend the class
+        <span class="emphasis"><em>org.ektorp.support.CouchDbDocument</em></span></p><p>CouchDbDocument already has mappings defined for id, revision
+        and also for attachment stubs.</p><p>Here's how the Sofa class looks like when extending
+        CouchDbDocument:</p><pre class="programlisting"><b class="hl-keyword">import</b> org.ektorp.support.CouchDbDocument;
+
+<b class="hl-keyword">public</b> <b class="hl-keyword">class</b> Sofa <b class="hl-keyword">extends</b> CouchDbDocument{
+
+        <b class="hl-keyword">private</b> String color;
+        
+        <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setColor(String s) {
+                color = s;
+        }
+        
+        <b class="hl-keyword">public</b> String getColor() {
+                <b class="hl-keyword">return</b> color;
+        }
+}</pre></div><div class="section" title="Example of Various Mappings"><div class="titlepage"><div><div><h3 class="title"><a name="d0e343"></a>Example of Various Mappings</h3></div></div></div><p>Here is an example object that showcases various
+        mappings:</p><pre class="programlisting"><b class="hl-keyword">package</b> org.ektorp.sample;
+
+<b class="hl-keyword">import</b> java.util.*;
+
+<b class="hl-keyword">import</b> org.codehaus.jackson.annotate.*;
+<b class="hl-keyword">import</b> org.ektorp.*;
+
+<b class="hl-keyword">public</b> <b class="hl-keyword">class</b> Sofa <b class="hl-keyword">extends</b> CouchDbDocument {
+
+        <b class="hl-keyword">private</b> String color;
+        <b class="hl-keyword">private</b> <b class="hl-keyword">int</b> seats;
+        <b class="hl-keyword">private</b> Date dateCreated;
+        <b class="hl-keyword">private</b> List&lt;String&gt; imageURLs;
+        <b class="hl-keyword">private</b> Map&lt;String, Pillow&gt; pillows;
+        
+        <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setColor(String s) {
+                <b class="hl-keyword">this</b>.color = s;
+        }
+        
+        <b class="hl-keyword">public</b> <b class="hl-keyword">int</b> getSeats() {
+                <b class="hl-keyword">return</b> seats;
+        }
+        
+        <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setSeats(<b class="hl-keyword">int</b> i) {
+                <b class="hl-keyword">this</b>.seats = i;
+        }
+        
+        <b class="hl-keyword">public</b> String getColor() {
+                <b class="hl-keyword">return</b> color;
+        }
+        
+        <b class="hl-keyword">public</b> List&lt;String&gt; getImageURLs() {
+                <b class="hl-keyword">return</b> imageURLs;
+        }
+        
+        <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setImageURLs(List&lt;String&gt; imageURLs) {
+                <b class="hl-keyword">this</b>.imageURLs = imageURLs;
+        }
+        
+        <i><span class="hl-annotation" style="color: gray">@JsonIgnore</span></i>
+        <b class="hl-keyword">public</b> <b class="hl-keyword">int</b> getNumberOfImages() {
+                <b class="hl-keyword">return</b> imageURLs != null ? imageURLs.size() : <span class="hl-number">0</span>;
+        }
+        
+        <b class="hl-keyword">public</b> Map&lt;String, Pillow&gt; getPillows() {
+                <b class="hl-keyword">return</b> pillows;
+        }
+        
+        <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setPillows(Map&lt;String, Pillow&gt; pillows) {
+                <b class="hl-keyword">this</b>.pillows = pillows;
+        }
+        
+        <i><span class="hl-annotation" style="color: gray">@JsonProperty("date_created")</span></i>
+        <b class="hl-keyword">public</b> Date getDateCreated() {
+                <b class="hl-keyword">return</b> dateCreated;
+        }
+        
+        <i><span class="hl-annotation" style="color: gray">@JsonProperty("date_created")</span></i>
+        <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setDateCreated(Date dateCreated) {
+                <b class="hl-keyword">this</b>.dateCreated = dateCreated;
+        }
+}</pre><p>As you can see, most properties does not require any special
+        mappings. The @JsonProperty annotation are used to map a property to a
+        different name than the property name.</p><p>In order to suppress a property <span class="emphasis"><em>@JsonIgnore</em></span>
+        is used.</p></div><div class="section" title="Immutable Object"><div class="titlepage"><div><div><h3 class="title"><a name="d0e357"></a>Immutable Object</h3></div></div></div><p>It is possible to map immutable objects:</p><pre class="programlisting"><b class="hl-keyword">package</b> org.ektorp.sample;
+
+<b class="hl-keyword">import</b> org.codehaus.jackson.annotate.*;
+
+<b class="hl-keyword">public</b> <b class="hl-keyword">class</b> Pillow {
+        
+        <b class="hl-keyword">public</b> enum Softness {SOFT, MEDIUM, FIRM}
+        
+        <b class="hl-keyword">private</b> <b class="hl-keyword">final</b> Softness softness;
+        
+        <i><span class="hl-annotation" style="color: gray">@JsonCreator</span></i>
+        <b class="hl-keyword">public</b> Pillow(<i><span class="hl-annotation" style="color: gray">@JsonProperty("softness")</span></i> Softness s) {
+            softness = s;
+        }
+        
+        <b class="hl-keyword">public</b> Softness getSoftness() {
+            <b class="hl-keyword">return</b> softness;
+        }
+}</pre><p>The constructor is annotated with
+        <span class="emphasis"><em>@JsonCreator</em></span> and the properties has to be
+        specified with @JsonProperty</p></div><div class="section" title="Referring Other Documents"><div class="titlepage"><div><div><h3 class="title"><a name="d0e369"></a>Referring Other Documents</h3></div></div></div><p>An embedded collection may need to be externalized due to size
+        or to reduce update congestion.</p><p>Ektorp provides support for this through the @DocumentReferences
+        annotation.</p><p>Fields annotated with @DocumentReferences will have their
+        children elements stored in separate documents. Only collections that
+        implement java.util.Set are supported.</p><pre class="programlisting"><b class="hl-keyword">public</b> <b class="hl-keyword">class</b> BlogPost {
+
+    <i><span class="hl-annotation" style="color: gray">@JsonProperty("_id")</span></i>
+    <b class="hl-keyword">private</b> String id;
+
+    <i><span class="hl-annotation" style="color: gray">@JsonProperty("_rev")</span></i>
+    <b class="hl-keyword">private</b> String rev;
+
+    <i><span class="hl-annotation" style="color: gray">@DocumentReferences(backReference = "blogPostId", fetch = FetchType.LAZY, descendingSortOrder = true, orderBy = "dateCreated")</span></i>
+    <b class="hl-keyword">private</b> Set&lt;Comment&gt; comments;
+
+...</pre><p>The backReference parameter is required and must name the field
+        in the child document that contains the id of the parent
+        document.</p><p>The fetch strategy if @DocumentReferences collections may be
+        lazy or eager. If set to lazy, the collection will be populated in
+        entirety when the collection is first touched. Eager setting will
+        cause the collection to be populated at the same time as it
+        parent.</p><p>The sort order of the loaded collection may be specified by the
+        orderBy parameter. The parameter must refer to a field in the child
+        docs.</p><div class="section" title="Transitive Persistence"><div class="titlepage"><div><div><h4 class="title"><a name="d0e386"></a>Transitive Persistence</h4></div></div></div><p>If an element is added to a Set annotated with
+          @DocumentReferences the element will be stored transparently when
+          the parent document is updated.</p><p>Removing an element from the collection will cause its
+          deletion from the database when the parent document is
+          updated.</p><p>The cascade behaviour can be controlled through the cascade
+          parameter in @DocumentReferences. There are four cascade
+          types:</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><tbody><tr><td>ALL</td><td>All operations are cascaded to the child
+                  documents.</td></tr><tr><td>SAVE_UPDATE</td><td>Cascades the create and update operations when
+                  create(), update(), executeBulk() or executeAllOrNothing()
+                  is called.</td></tr><tr><td>DELETE</td><td>Cascades the remove operation to associated entities
+                  if delete(), executeBulk() or executeAllOrNothing() is
+                  called.</td></tr><tr><td>NONE (default)</td><td>No operation is cascaded to the child
+                  documents.</td></tr></tbody></table></div><div class="section" title="Recommendation"><div class="titlepage"><div><div><h5 class="title"><a name="d0e418"></a>Recommendation</h5></div></div></div><p>The cascade type you choose can have a large inpact on how
+            your application behaves. If you have moved the collection to
+            extenal documents in order to avoid update congestion, then
+            cascade type NONE is probably the best option as this will
+            minimize conflicts.</p></div><div class="section" title="Limitations"><div class="titlepage"><div><div><h5 class="title"><a name="d0e423"></a>Limitations</h5></div></div></div><p>In Ektorp 1.1.0 the cascade logic for updates is quite crude
+            and will cause updates of all elements, regardless if the have
+            changed or not. This behaviour might change in future
+            releases.</p><p>If the parent document is deleted the child docuements will
+            not be deleted automatically.</p></div></div><div class="section" title="Supporting Views"><div class="titlepage"><div><div><h4 class="title"><a name="d0e430"></a>Supporting Views</h4></div></div></div><p>Allthough the document references are managed transparently it
+          can be interesting to know that the relations between parent and
+          child documents are managed by views that are automatically
+          generated by Ektorp (unless explicitly specified). These views are
+          put in the <a class="link" href="std_design_doc" target="_top">Standard Design
+          Document</a> and are named according to the following naming
+          convention: ektorp_docrefs_[fieldName].</p><p>Supporting views are generated in conjunction with the view
+          generation functionaly provided by the repository support in Ektorp,
+          see <a class="link" href="auto_view_gen" target="_top">chapter 6</a>.</p></div><div class="section" title="Only One-to-Many relations are supported"><div class="titlepage"><div><div><h4 class="title"><a name="d0e443"></a>Only One-to-Many relations are supported</h4></div></div></div><p>The views can only support one backreference to one parent,
+          Many-to-Many relations are hence not supported.</p></div></div><div class="section" title="Decoupling Persistent Classes from Annotations"><div class="titlepage"><div><div><h3 class="title"><a name="d0e448"></a>Decoupling Persistent Classes from Annotations</h3></div></div></div><p>If you don't want your classes to have external dependencies or
+        if you can't modify them for other reasons, you can register a mix-in
+        class (or interface) that provides the mapping information to the JSON
+        processor. In order to do this you must bring your own instance of
+        org.codehaus.jackson.map.ObjectMapper:</p><pre class="programlisting">ObjectMapper myMapper = <b class="hl-keyword">new</b> ObjectMapper();
+
+myMapper.getSerializationConfig().addMixInAnnotations(Target.<b class="hl-keyword">class</b>, MixIn.<b class="hl-keyword">class</b>);
+myMapper.getDeserializationConfig().addMixInAnnotations(Target.<b class="hl-keyword">class</b>, MixIn.<b class="hl-keyword">class</b>);
+
+
+CouchDbConnector db = <b class="hl-keyword">new</b> StdCouchDbConnector(<b class="hl-string"><i style="color:red">"myDBName"</i></b>, dbInstance, myMapper);</pre><p>The mix-in class is just an abstract class that provides the
+        annotations for your target class:</p><pre class="programlisting"><i><span class="hl-annotation" style="color: gray">@JsonSerialize(include = Inclusion.NON_NULL)</span></i>
+<b class="hl-keyword">abstract</b> <b class="hl-keyword">class</b> MixIn
+
+  <i><span class="hl-annotation" style="color: gray">@JsonProperty("_id")</span></i> <b class="hl-keyword">abstract</b> <b class="hl-keyword">int</b> getFoo(); <i class="hl-comment" style="color: silver">// rename property</i>
+  <i><span class="hl-annotation" style="color: gray">@JsonProperty("_rev")</span></i> <b class="hl-keyword">abstract</b> <b class="hl-keyword">int</b> getBar(); <i class="hl-comment" style="color: silver">// rename property</i>
+  <i><span class="hl-annotation" style="color: gray">@JsonIgnore</span></i> <b class="hl-keyword">int</b> getSize(); <i class="hl-comment" style="color: silver">// we don't need it!</i>
+  
+}</pre><p>Read more about mix-ins in the <a class="link" href="http://wiki.fasterxml.com/JacksonMixInAnnotations" target="_top">Jackson
+        Documentation.</a></p></div><div class="section" title="Custom Serializer"><div class="titlepage"><div><div><h3 class="title"><a name="d0e463"></a>Custom Serializer</h3></div></div></div><p>If you have special needs and want to have complete control of
+        the serialization you can register a custom serializer for your
+        class:</p><pre class="programlisting"><i><span class="hl-annotation" style="color: gray">@JsonSerailize(using = MySpecialType.Serializer.class)</span></i>
+<b class="hl-keyword">public</b> <b class="hl-keyword">class</b> MySpecialDocument {
+
+    String id;
+    String revision;
+    
+    ... rest of <b class="hl-keyword">class</b> goes here ...
+    
+    <b class="hl-keyword">public</b> <b class="hl-keyword">static</b> <b class="hl-keyword">class</b> Serializer <b class="hl-keyword">extends</b> JsonSerializer&lt;MySpecialType&gt; {
+
+        <i><span class="hl-annotation" style="color: gray">@Override</span></i>
+        <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> serialize(MySpecialType value, JsonGenerator jgen,
+                SerializerProvider provider) <b class="hl-keyword">throws</b> IOException,
+                JsonProcessingException {
+            jgen.writeStartObject();
+            jgen.writeStringField(<b class="hl-string"><i style="color:red">"_id"</i></b>, value.id);
+            jgen.writeStringField(<b class="hl-string"><i style="color:red">"_rev"</i></b>, value.revision);
+            ...
+            etc etc
+            ...
+            jgen.writeEndObject();
+        }
+        
+    }
+}</pre></div><div class="section" title="Custom DocumentAccessor"><div class="titlepage"><div><div><h3 class="title"><a name="d0e470"></a>Custom DocumentAccessor</h3></div></div></div><p>Ektorp has to know how to access the id and revision properties
+        in the types it is working with. For most types that are annotated or
+        follow the naming convention this works out of the box. But if you are
+        using a an exotic type, a custom serializer or mix-ins Ektorp might
+        not be able to figure out how to access these properties.</p><p>In this case you can create and register a custom document
+        accessor:</p><pre class="programlisting"><b class="hl-keyword">import</b> org.ektorp.util.DocumentAccessor;
+<b class="hl-keyword">import</b> org.ektorp.util.Documents;
+
+<b class="hl-keyword">class</b> MyDocumentAccessor <b class="hl-keyword">implements</b> DocumentAccessor {
+    <b class="hl-tag" style="color: blue">/**
+    * @return true if document type's id field can be mutated.
+    */</b>
+    <b class="hl-keyword">public</b> <b class="hl-keyword">boolean</b> hasIdMutator() {
+        <b class="hl-keyword">return</b> true;
+    }
+
+    <b class="hl-keyword">public</b> String getId(Object o) {
+        <b class="hl-keyword">return</b> cast(o).foo;
+    }
+
+    <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setId(Object o, String id) {
+        cast(o).foo = rev;
+    }
+
+    <b class="hl-keyword">public</b> String getRevision(Object o) {
+        <b class="hl-keyword">return</b> cast(o).bar;
+    }
+
+    <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> setRevision(Object o, String rev) {
+        cast(o).bar = rev;
+    }
+
+    <b class="hl-keyword">private</b> MyType cast(Object o) {
+        <b class="hl-keyword">return</b> (MyType) o;
+    }
+
+}</pre><p>And register the new accessor with Ektorp:</p><pre class="programlisting">Documents.registerAccessor(MyType.<b class="hl-keyword">class</b>, <b class="hl-keyword">new</b> MyDocumentAccessor());
+
+<i class="hl-comment" style="color: silver">// here's a Junit snippet you can use to test your accessor:</i>
+MyType myType = <b class="hl-keyword">new</b> MyType();
+Documents.setId(myType, <b class="hl-string"><i style="color:red">"my_id"</i></b>);
+assertEquals(<b class="hl-string"><i style="color:red">"my_id"</i></b>, Documents.getId(myType));
+assertTrue(Documents.isNew(myType));</pre></div></div><div class="section" title="Document Mapped as java.util.Map"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e483"></a>Document Mapped as java.util.Map</h2></div></div></div><p>It is possible to read and write documents mapped as
+      java.util.Map&lt;String, Object&gt;. This is convenient if you have
+      documents that have a simple structure and a small number of
+      fields.</p><pre class="programlisting">    
+    List&lt;String&gt; countries = ...
+    Map&lt;String, List&lt;String&gt;&gt; majorCitiesByCountry = ...
+    
+    Map&lt;String, Object&gt; referenceData = <b class="hl-keyword">new</b> HashMap&lt;String, Object&gt;();
+    referenceData.put(<b class="hl-string"><i style="color:red">"_id"</i></b>, <b class="hl-string"><i style="color:red">"referenceData"</i></b>);
+    referenceData.put(<b class="hl-string"><i style="color:red">"countries"</i></b>, countries);
+    referenceData.put(<b class="hl-string"><i style="color:red">"majorCitiesByCountry"</i></b>, majorCitiesByCountry);
+    
+    db.create(referenceData);
+
+    Map&lt;String, Object&gt; referenceData_<span class="hl-number">2</span> = db.get(Map.<b class="hl-keyword">class</b>, <b class="hl-string"><i style="color:red">"referenceData"</i></b>)
+    ...</pre></div><div class="section" title="Document Mapped as JsonNode"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e490"></a>Document Mapped as JsonNode</h2></div></div></div><p>If you like to work with your documents in a DOM-style manner your
+      can use <span class="emphasis"><em>org.codehaus.jackson.JsonNode</em></span>. This is
+      useful if you want to modify documents without creating explicit Java
+      types for them. JsonNode is more powerful than java.util.Map when it
+      comes to traversing and modifying the document.</p><pre class="programlisting"><b class="hl-keyword">import</b> org.ektorp.*;
+<b class="hl-keyword">import</b> org.codehaus.jackson.*;
+<b class="hl-keyword">import</b> org.codehaus.jackson.node.*;
+
+    ...
+
+    JsonNode doc = db.get(JsonNode.<b class="hl-keyword">class</b>, <b class="hl-string"><i style="color:red">"myDoc"</i></b>);
+        
+    JsonNode address = doc.findPath(<b class="hl-string"><i style="color:red">"address"</i></b>);
+    <b class="hl-keyword">if</b> (address.isObject()) {
+        ObjectNode a = (ObjectNode) address;
+        a.put(<b class="hl-string"><i style="color:red">"city"</i></b>, <b class="hl-string"><i style="color:red">"Stockholm"</i></b>);
+    }
+        
+    db.update(doc);</pre></div></div><div class="chapter" title="Chapter&nbsp;5.&nbsp;Working with Objects"><div class="titlepage"><div><div><h2 class="title"><a name="d0e500"></a>Chapter&nbsp;5.&nbsp;Working with Objects</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e508">Create</a></span></dt><dt><span class="section"><a href="#d0e515">Read</a></span></dt><dt><span class="section"><a href="#d0e535">Update</a></span></dt><dt><span class="section"><a href="#d0e547">Delete</a></span></dt><dt><span class="section"><a href="#d0e563">Bulk Operations</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e568">Fetch Multiple Documents With a Single Request</a></span></dt><dt><span class="section"><a href="#d0e575">Creating, Updating and Deleting Documents With a Single
+        Request</a></span></dt><dt><span class="section"><a href="#d0e591">All Or Nothing</a></span></dt><dt><span class="section"><a href="#d0e599">A Note on Resource Usage in Bulk Operations</a></span></dt></dl></dd></dl></div><p>Basic CRUD (Create, Read, Update and Delete) operations are
+    straightforward in Ektorp.</p><p></p><p>The easiest way to create a repository is to extend the class
+    CouchDbRepositorySupport. The class provides all CRUD methods out of the
+    box and has support methods for writing terse finder methods.</p><div class="section" title="Create"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e508"></a>Create</h2></div></div></div><pre class="programlisting">Sofa sofa = ...
+
+CouchDbConnector db = ...
+db.create(sofa);
+
+<i class="hl-comment" style="color: silver">// both id and revision will be set after create</i>
+String id = sofa.getId();
+String revision = sofa.getRevision();</pre><p>If the object being created does not have an id set, CouchDB will
+      generate one. Both id and revision will be set after the create
+      operation.</p></div><div class="section" title="Read"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e515"></a>Read</h2></div></div></div><p>Get the latest revision of a document from the database:</p><pre class="programlisting">String id = ...
+Sofa sofa = db.get(Sofa.<b class="hl-keyword">class</b>, id);</pre><p>If the desired document does not exists in the database an
+      <span class="emphasis"><em>org.ektorp.DocumentNotFoundException</em></span> is
+      thrown.</p><p>If you need to fetch a specific revision:</p><pre class="programlisting">String id = ...
+String rev = ...
+Sofa sofa = db.get(Sofa.<b class="hl-keyword">class</b>, id, rev);</pre><p>Read a document as a raw stream:</p><pre class="programlisting">String id = ...
+InputStream doc = db.getAsStream(id);
+
+InputStream olderRev = db.getAsStream(id, rev);</pre></div><div class="section" title="Update"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e535"></a>Update</h2></div></div></div><pre class="programlisting">Sofa sofa = ...
+db.update(sofa)
+<i class="hl-comment" style="color: silver">// revision will be updated after update</i>
+sofa.getRevision();</pre><p>If the there exists a newer revision of the document in the
+      database, an <span class="emphasis"><em>org.ektorp.UpdateConflictException</em></span> is
+      thrown.</p><p>Note that calling update with an object that has an empty id field
+      will create a new document in the database.</p></div><div class="section" title="Delete"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e547"></a>Delete</h2></div></div></div><p>Both the id and revision of an object is required in order to
+      delete it:</p><pre class="programlisting">String id = ...
+String revision = ...
+db.delete(id, revision):</pre><p>If the there exists a newer revision of the document in the
+      database, an <span class="emphasis"><em>org.ektorp.UpdateConflictException</em></span> is
+      thrown.</p><p>As a convenience, a whole object can also be passed as an
+      argument:</p><pre class="programlisting">Sofa sofa = ...
+db.delete(sofa)</pre></div><div class="section" title="Bulk Operations"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e563"></a>Bulk Operations</h2></div></div></div><p>Ektorp provides full support for the bulk document operations
+      available in CouchDB.</p><div class="section" title="Fetch Multiple Documents With a Single Request"><div class="titlepage"><div><div><h3 class="title"><a name="d0e568"></a>Fetch Multiple Documents With a Single Request</h3></div></div></div><p>Loading multiple documents in one call is performed through the
+        queryView API. The difference from regular view queries is that
+        allDocs() is called instead of defining a design document.</p><pre class="programlisting">List&lt;String&gt; docIds = ...
+
+ViewQuery q = <b class="hl-keyword">new</b> ViewQuery()
+                      .allDocs()
+                      .includeDocs(true)
+                      .keys(docIds);
+
+List&lt;Sofa&gt; bulkLoaded = db.queryView(q, Sofa.<b class="hl-keyword">class</b>);</pre></div><div class="section" title="Creating, Updating and Deleting Documents With a Single Request"><div class="titlepage"><div><div><h3 class="title"><a name="d0e575"></a>Creating, Updating and Deleting Documents With a Single
+        Request</h3></div></div></div><p>All other bulk operations are performed through the same methods
+        in <span class="emphasis"><em>CouchDbConnector</em></span>:</p><pre class="programlisting">List&lt;DocumentOperationResult&gt; executeBulk(Collection&lt;?&gt; objects);
+
+List&lt;DocumentOperationResult&gt; executeAllOrNothing(Collection&lt;?&gt; objects);</pre><p>If a new object is added to the objects list it will be created
+        in the database. If an existing object is added, (revision being not
+        null) it will be updated.</p><p>In order to delete an object, add a instance of
+        org.ektorp.BulkDeleteDocument the the bulk list:</p><pre class="programlisting">List&lt;Object&gt; bulkDocs = ...
+Sofa toBeDeleted = ...
+        
+bulkDocs.add(BulkDeleteDocument.of(toBeDeleted));
+        
+db.executeBulk(bulkDocs);
+</pre></div><div class="section" title="All Or Nothing"><div class="titlepage"><div><div><h3 class="title"><a name="d0e591"></a>All Or Nothing</h3></div></div></div><p>The method <span class="emphasis"><em>executeAllOrNothing</em></span> has
+        unsurprisingly all-or-nothing semantics. In the case of a failure
+        during the bulk operation, when the database restarts either all the
+        changes will have been saved or none of them. However, it does not do
+        any conflict checking, so the documents will be committed even if this
+        creates conflicts.</p></div><div class="section" title="A Note on Resource Usage in Bulk Operations"><div class="titlepage"><div><div><h3 class="title"><a name="d0e599"></a>A Note on Resource Usage in Bulk Operations</h3></div></div></div><p>Ektorp will create threads for writing bulk documents to the
+        database. The threads are named <span class="emphasis"><em>"ektorp-doc-writer-[thread
+        count]"</em></span>. The thread pool used is a
+        <span class="emphasis"><em>java.util.concurrent.Executors.newCachedThreadPool()</em></span>.
+        Unused threads will die after 60 seconds.</p></div></div></div><div class="chapter" title="Chapter&nbsp;6.&nbsp;Repository Support"><div class="titlepage"><div><div><h2 class="title"><a name="d0e610"></a>Chapter&nbsp;6.&nbsp;Repository Support</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e634">Out of the Box CRUD</a></span></dt><dt><span class="section"><a href="#d0e650">Standard Design Document</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e668">Standard Views</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e681">In-line View Definitions</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e709">Loading the View Definition From the classpath</a></span></dt><dt><span class="section"><a href="#d0e723">Auto Updating Views</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e739">Automatic Generation of Design Document
+      and Views</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e784">Resolving Field Name Conflicts</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e796">List, Show and Filter Definitions</a></span></dt></dl></div><p>The Repository Support in Ektorp is aimed to reduce the amount of
+    repetitive code in repositories and to facilitate the management of the
+    design documents that define the views for the documents in
+    CouchDB.</p><p>Ektorp provides a repository base class
+    <span class="emphasis"><em>org.ektorp.support.CouchDbRepositorySupport</em></span> that has
+    a number of features:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>Out of the box CRUD.</p></li><li class="listitem"><p>Automatic view generation.</p></li><li class="listitem"><p>View management.</p></li><li class="listitem"><p>Support methods for easier querying.</p></li></ul></div><p></p><div class="section" title="Out of the Box CRUD"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e634"></a>Out of the Box CRUD</h2></div></div></div><p>Here is a minimal repository based on
+      <span class="emphasis"><em>org.ektorp.support.CouchDbRepositorySupport:</em></span></p><pre class="programlisting"><b class="hl-keyword">package</b> org.ektorp.sample;
+
+<b class="hl-keyword">import</b> java.util.*;
+<b class="hl-keyword">import</b> org.ektorp.*;
+
+<b class="hl-keyword">public</b> <b class="hl-keyword">class</b> SofaRepository <b class="hl-keyword">extends</b> CouchDbRepositorySupport&lt;Sofa&gt; {
+
+        <b class="hl-keyword">public</b> SofaRepository(CouchDbConnector db) {
+                <b class="hl-keyword">super</b>(Sofa.<b class="hl-keyword">class</b>, db);
+        }
+
+        <b class="hl-keyword">public</b> List&lt;Sofa&gt; findByColor(String color) {
+                <b class="hl-keyword">return</b> queryView(<b class="hl-string"><i style="color:red">"by_color"</i></b>, color);
+        }
+}</pre><p>This repository above doesn't look like much but
+      <span class="emphasis"><em>CouchDbRepositorySupport</em></span> has provided the following
+      methods to the SofaRepository:</p><pre class="programlisting"><b class="hl-keyword">public</b> <b class="hl-keyword">void</b> add(Sofa entity);
+<b class="hl-keyword">public</b> <b class="hl-keyword">void</b> update(Sofa entity);
+<b class="hl-keyword">public</b> <b class="hl-keyword">void</b> remove(Sofa entity);
+<b class="hl-keyword">public</b> Sofa get(String id);
+<b class="hl-keyword">public</b> Sofa get(String id, String rev);
+<b class="hl-keyword">public</b> List&lt;T&gt; getAll();
+<b class="hl-keyword">public</b> <b class="hl-keyword">boolean</b> contains(String docId);</pre></div><div class="section" title="Standard Design Document"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e650"></a>Standard Design Document</h2></div></div></div><p>When using support methods like <span class="emphasis"><em>queryView</em></span> the
+      underlying code assumes that the database contains a design document
+      with an id adhering to the naming convention:</p><p><span class="emphasis"><em>_design/[repository type simple name]</em></span></p><p>e.g. the repository in the previous section expects that the
+      document _design/Sofa exists in the database.</p><p>Calling <span class="emphasis"><em>queryView</em></span> without the standard design
+      document defined will cause an exception to be thrown.</p><div class="section" title="Standard Views"><div class="titlepage"><div><div><h3 class="title"><a name="d0e668"></a>Standard Views</h3></div></div></div><p>The method getAll will try to query the view "all" in the
+        standard design document in order to get a list of all document ids
+        that are handled by the repository.</p><p>If the "all" view is missing, all documents (except design
+        documents) will be loaded. This means that you cannot mix document
+        types in the same database without the "all" view. Another problem
+        with a missing "all" view is that concurrent deletes of documents
+        while documents are loaded may cause an DbAccessException.</p><p>It is strongly recommended that the all view is defined in a
+        production enviroment.</p><p>Here is an example "all" view:</p><pre class="programlisting">[{<b class="hl-string"><i style="color:red">"_id"</i></b>:<b class="hl-string"><i style="color:red">"_design/Sofa"</i></b>,
+    <b class="hl-string"><i style="color:red">"views"</i></b>:{
+        <b class="hl-string"><i style="color:red">"all"</i></b>: {<b class="hl-string"><i style="color:red">"map"</i></b>: <b class="hl-string"><i style="color:red">"function(doc) { if (doc.type = 'Sofa' ) emit( null, doc._id ) } "</i></b>}
+     }
+}]</pre></div></div><div class="section" title="In-line View Definitions"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e681"></a>In-line View Definitions</h2></div></div></div><p>Repositories based on CouchDbRepositorySupport may define the
+      views used by the repository through annotations in the repository
+      class.</p><pre class="programlisting"><i><span class="hl-annotation" style="color: gray">@View( name = "all", map = "function(doc) { if (doc.type == 'Sofa' ) emit( null, doc._id )}")</span></i>
+<b class="hl-keyword">public</b> <b class="hl-keyword">class</b> SofaRepository <b class="hl-keyword">extends</b> CouchDbRepositorySupport&lt;Sofa&gt; {
+
+    <i><span class="hl-annotation" style="color: gray">@View( name = "avg_sofa_size", map = "function(doc) {...}", reduce = "function(doc) {...}")</span></i>
+    <b class="hl-keyword">public</b> <b class="hl-keyword">int</b> getAverageSofaSize() {
+        ViewResult r = db.queryView(createQuery(<b class="hl-string"><i style="color:red">"avg_sofa_size"</i></b>));
+        <b class="hl-keyword">return</b> r.getRows().get(<span class="hl-number">0</span>).getValueAsInt();
+    }
+
+}</pre><p>If you have many view definition you can group them with the
+      @Views annotation:</p><pre class="programlisting">@Views({
+    @View(name = "view_1", map = "function(doc) { ... }"),
+    @View(name = "view_2", map = "function(doc) { ... }"),
+    @View(name = "view_3", map = "function(doc) { ... }")
+    })
+public class MyRepository {
+    ...</pre><p><span class="emphasis"><em>@View</em></span> and <span class="emphasis"><em>@Views</em></span> and can
+      be defined at class level or at method level.</p><p>View creation is triggered by calling the method:
+      <span class="emphasis"><em>initStandardDesignDocument</em></span> in
+      <span class="emphasis"><em>CouchDbRepositorySupport</em></span>.</p><p>If the standard design document doesn't exists, it will be
+      created.</p><div class="section" title="Loading the View Definition From the classpath"><div class="titlepage"><div><div><h3 class="title"><a name="d0e709"></a>Loading the View Definition From the classpath</h3></div></div></div><p>Non-trivial views are best stored in a separate files. By
+        specifying the file parameter a view definition can be loaded from the
+        classpath. The path is relative to the class annotated by this
+        annotation. If the file complicated_view.json is in the same directory
+        as the repository this parameter should be set to
+        <span class="emphasis"><em>"complicated_view.json"</em></span>. The file must be a valid
+        json document:</p><pre class="programlisting">{
+    <b class="hl-string"><i style="color:red">"map"</i></b>: <b class="hl-string"><i style="color:red">"function(doc) { much javascript here }"</i></b>,
+    <i class="hl-comment" style="color: silver">// the reduce function is optional</i>
+    <b class="hl-string"><i style="color:red">"reduce"</i></b>: <b class="hl-string"><i style="color:red">"function(keys, values) { ... }"</i></b>
+}</pre><p>The repository class:</p><pre class="programlisting"><i><span class="hl-annotation" style="color: gray">@View( name = "complicated_view", file = "complicated_view.json")</span></i>
+<b class="hl-keyword">public</b> <b class="hl-keyword">int</b> getAverageSofaSize() {
+    ViewResult r = db.queryView(createQuery(<b class="hl-string"><i style="color:red">"complicated_view.json"</i></b>));
+    <b class="hl-keyword">return</b> r.getRows().get(<span class="hl-number">0</span>).getValueAsInt();
+}</pre></div><div class="section" title="Auto Updating Views"><div class="titlepage"><div><div><h3 class="title"><a name="d0e723"></a>Auto Updating Views</h3></div></div></div><p>The default behaviour is to not touch existing views if they
+        already exists. However, Ektorp can update views automatically if the
+        view defined in the annotation @View differs from the one existing in
+        the database. This is especially convenient during development.</p><p>This feature is enabled through the system property:
+        <span class="emphasis"><em>org.ektorp.support.AutoUpdateViewOnChange=true</em></span></p><p>If enabled, a simple string comparison will determine if the
+        view definition has changed and update it if necessary.</p><p>If you are using the Ektorp Spring module, you can also enable
+        this feature through a setter in
+        <span class="emphasis"><em>org.ektorp.spring.HttpClientFactoryBean</em></span>.</p></div></div><div class="section" title="Automatic Generation of Design Document and Views"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e739"></a>Automatic Generation of Design Document
+      and Views</h2></div></div></div><p><span class="emphasis"><em>CouchDbRepositorySupport</em></span> is able to generate
+      some views automatically. Simple finder methods can be annotated with
+      the <span class="emphasis"><em>@GenererateView</em></span> annotation.</p><pre class="programlisting">...
+<i><span class="hl-annotation" style="color: gray">@GenerateView</span></i>
+<b class="hl-keyword">public</b> List&lt;Sofa&gt; findByColor(String color) {
+    <b class="hl-keyword">return</b> queryView(<b class="hl-string"><i style="color:red">"by_color"</i></b>, color);
+}
+...</pre><p>In order for @GenerateView to work properly, the following
+      requirements has to be fulfilled:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>The method must be named findBy[Property]. If a
+          @TypeDiscriminator is defined, the "all" view used by the getAll
+          method can also be generated.</p></li><li class="listitem"><p>The method may only have one parameter.</p></li><li class="listitem"><p>The property must exist in the target class.</p><p><span class="emphasis"><em>public String getColor()</em></span> in the class
+          Sofa the example above.</p></li><li class="listitem"><p>For iterable properties the property may be named in the
+          plural form: <span class="emphasis"><em>List&lt;String&gt;
+          getColors()</em></span></p></li></ul></div><p>The generated view will be named by_[property].</p><p>View generation is triggered by calling the method:
+      <span class="emphasis"><em>initStandardDesignDocument</em></span> in
+      <span class="emphasis"><em>CouchDbRepositorySupport</em></span>.</p><p>If the standard design document doesn't exists, it will be
+      created.</p><div class="section" title="Resolving Field Name Conflicts"><div class="titlepage"><div><div><h3 class="title"><a name="d0e784"></a>Resolving Field Name Conflicts</h3></div></div></div><p>The database may contain other types of documents that have a
+        field with the same name as in the type handled by a particular
+        repository. This is normally not a problem, but if that field name is
+        used as a key or in a condition in a view, wrong documents may be
+        returned in view queries.</p><p>In order to distinguish your type's documents in the database
+        the @TypeDiscriminator annotation can be used:</p><pre class="programlisting"><b class="hl-keyword">public</b> <b class="hl-keyword">class</b> BlogPost {
+
+    <i><span class="hl-annotation" style="color: gray">@JsonProperty("_id")</span></i>
+    <b class="hl-keyword">private</b> String id;
+
+    <i><span class="hl-annotation" style="color: gray">@JsonProperty("_rev")</span></i>
+    <b class="hl-keyword">private</b> String rev;
+
+    <i class="hl-comment" style="color: silver">// this field marks blog post documents in the db </i>
+    <i><span class="hl-annotation" style="color: gray">@TypeDiscriminator</span></i>
+    <b class="hl-keyword">private</b> String title;
+
+...</pre><p> It is also possible to write a custom type discriminator
+        by declaring the @TypeDiscriminator on the type:</p><pre class="programlisting"><i class="hl-comment" style="color: silver">// the declared string is inserted as a part of if statements int the generated view's map function.</i>
+<i><span class="hl-annotation" style="color: gray">@TypeDiscriminator("doc.title &amp;&amp; doc.myField === 'special_value'")</span></i>
+<b class="hl-keyword">public</b> <b class="hl-keyword">class</b> BlogPost {
+
+    <i><span class="hl-annotation" style="color: gray">@JsonProperty("_id")</span></i>
+    <b class="hl-keyword">private</b> String id;
+
+    <i><span class="hl-annotation" style="color: gray">@JsonProperty("_rev")</span></i>
+    <b class="hl-keyword">private</b> String rev
+
+    <b class="hl-keyword">private</b> String title;
+
+    <b class="hl-keyword">private</b> String myField;
+
+...</pre></div></div><div class="section" title="List, Show and Filter Definitions"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e796"></a>List, Show and Filter Definitions</h2></div></div></div><p>Repositories based on CouchDbRepositorySupport may also define
+      list, show and filter functions through annotations in the repository
+      class.</p><p>They all have the same functionality, it is just the type of
+      function that differs:</p><pre class="programlisting"><i><span class="hl-annotation" style="color: gray">@Filter( name = "my_filter" file = "my_filter.js")</span></i>
+<i><span class="hl-annotation" style="color: gray">@ListFunction( name = "my_list_function" file = "my_filter.js")</span></i>
+<i><span class="hl-annotation" style="color: gray">@ShowFunction( name = "my_show_function" file = "my_filter.js")</span></i>
+<b class="hl-keyword">public</b> <b class="hl-keyword">class</b> MyRepository {
+    ...</pre><p>Multiple functions can be grouped with the corresponding
+      annotations @Filters, @Lists and @Shows.</p><p>These annotations behaves in effect as the @View and @Views
+      annotations described in section 3 of this chapter.</p></div></div><div class="chapter" title="Chapter&nbsp;7.&nbsp;Attachments"><div class="titlepage"><div><div><h2 class="title"><a name="d0e809"></a>Chapter&nbsp;7.&nbsp;Attachments</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e814">In-line Attachments</a></span></dt><dt><span class="section"><a href="#d0e823">Create Document and Attachment in one operation</a></span></dt><dt><span class="section"><a href="#d0e830">Add an Attachment to an Existing Document</a></span></dt><dt><span class="section"><a href="#d0e837">Fetch an Attachment</a></span></dt></dl></div><p>Documents in CouchDB may have any number of attachments associated
+    with it. The content of an attachment is not loaded together with the
+    document, just a stub containing meta information is co-loaded with the
+    document.</p><div class="section" title="In-line Attachments"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e814"></a>In-line Attachments</h2></div></div></div><p>Attachments can be stored along with its parent document by
+      embedding them in the parent document. The attachment itself has to be
+      Base64 encoded in this case as the whole document including the
+      attachment will be serialized into a string.</p><p>Note that the Sofa class in the example below extends
+      CouchDbDocument and exposes the protected method
+      addInlineAttachment(Attachment a).</p><pre class="programlisting">String base64EncodedData = ...
+Sofa sofa = ...
+
+Attachment inline = <b class="hl-keyword">new</b> Attachment(<b class="hl-string"><i style="color:red">"attachment_id"</i></b>, base64EncodedData, <b class="hl-string"><i style="color:red">"image/jpeg"</i></b>);
+
+sofa.addInlineAttachment(inline);
+db.update(sofa);</pre></div><div class="section" title="Create Document and Attachment in one operation"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e823"></a>Create Document and Attachment in one operation</h2></div></div></div><p>An attachment and its parent document can be created in the same
+      operation. This is useful if you just want to store the data "as is" and
+      don't really use the actual document, i.e. when storing an image.</p><pre class="programlisting">InputStream data = ...
+String contentType = <b class="hl-string"><i style="color:red">"image/jpeg"</i></b>;
+
+AttachmentInputStream a = <b class="hl-keyword">new</b> AttachmentInputStream(<b class="hl-string"><i style="color:red">"attachment_id"</i></b>,
+                                                     data,
+                                                     contentType);
+
+db.createAttachment(<b class="hl-string"><i style="color:red">"new_document_id"</i></b>, a);</pre></div><div class="section" title="Add an Attachment to an Existing Document"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e830"></a>Add an Attachment to an Existing Document</h2></div></div></div><p>If you don't want to add the attachment in-line, you can add
+      attachments in an separate operation.</p><pre class="programlisting">AttachmentInputStream a = new AttachmentInputStream("attachment_id",
+                                                     data,
+                                                     contentType);
+
+db.createAttachment("existing_document_id", "document_revision", a);</pre></div><div class="section" title="Fetch an Attachment"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e837"></a>Fetch an Attachment</h2></div></div></div><p>To retrieve the attachment's content:</p><pre class="programlisting">AttachmentInputStream data = db.getAttachment(<b class="hl-string"><i style="color:red">"document_id"</i></b>,
+                                              <b class="hl-string"><i style="color:red">"attachment_id"</i></b>);</pre><p>The entity base class
+      <span class="emphasis"><em>org.ektorp.support.CouchDbDocument</em></span> provides an
+      accessor for the document's attachments. The list contains stub
+      attachments.</p></div></div><div class="chapter" title="Chapter&nbsp;8.&nbsp;Querying"><div class="titlepage"><div><div><h2 class="title"><a name="d0e849"></a>Chapter&nbsp;8.&nbsp;Querying</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e859">Query for Objects</a></span></dt><dt><span class="section"><a href="#d0e869">Scalar Queries</a></span></dt><dt><span class="section"><a href="#d0e882">View Result as Raw JSON Stream</a></span></dt><dt><span class="section"><a href="#d0e889">Complex Keys</a></span></dt></dl></div><p>Queries in Ektorp are always performed against predefined views in
+    CouchDB. View queries are issued through
+    <span class="emphasis"><em>org.ektorp.ViewQuery</em></span> objects.</p><pre class="programlisting">ViewQuery query = <b class="hl-keyword">new</b> ViewQuery()
+                     .designDocId(<b class="hl-string"><i style="color:red">"_design/Sofa"</i></b>)
+                     .viewName(<b class="hl-string"><i style="color:red">"by_color"</i></b>)
+                     .key(<b class="hl-string"><i style="color:red">"red"</i></b>);</pre><div class="section" title="Query for Objects"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e859"></a>Query for Objects</h2></div></div></div><p>Objects can be loaded directly from view results as long as the
+      result contain documents. The document can either be included in the
+      view result by specifying the query parameter
+      <span class="emphasis"><em>includeDocs(true)</em></span> or be emitted directly by the
+      view into the value field.</p><pre class="programlisting">ViewQuery query = <b class="hl-keyword">new</b> ViewQuery()
+                     .designDocId(<b class="hl-string"><i style="color:red">"_design/Sofa"</i></b>)
+                     .viewName(<b class="hl-string"><i style="color:red">"by_color"</i></b>)
+                     .key(<b class="hl-string"><i style="color:red">"red"</i></b>);
+                
+List&lt;Sofa&gt; redSofas = db.queryView(query, Sofa.<b class="hl-keyword">class</b>);</pre></div><div class="section" title="Scalar Queries"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e869"></a>Scalar Queries</h2></div></div></div><p>It is possible to query for scalar values.</p><pre class="programlisting">ViewQuery query = <b class="hl-keyword">new</b> ViewQuery()
+          .designDocId(<b class="hl-string"><i style="color:red">"_design/somedoc"</i></b>)
+          .viewName(<b class="hl-string"><i style="color:red">"some_view_name"</i></b>);
+                
+ViewResult result = db.queryView(query);
+<b class="hl-keyword">for</b> (ViewResult.Row row : result.getRows()) {
+    String stringValue = row.getValue();
+    <b class="hl-keyword">int</b> intValue = row.getValueAsInt();
+}</pre><p>The key, value and doc fields can be access as a
+      <span class="emphasis"><em>org.jackson.JsonNode:</em></span></p><pre class="programlisting">
+ViewResult result = db.queryView(query);
+<b class="hl-keyword">for</b> (ViewResult.Row row : result) {
+    JsonNode keyNode = row.getKeyAsNode();
+    JsonNode valueNode = row.getValueAsNode();
+    JsonNode docNode = row.getDocAsNode();
+    ...
+}</pre></div><div class="section" title="View Result as Raw JSON Stream"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e882"></a>View Result as Raw JSON Stream</h2></div></div></div><p>The most flexible method is query for stream. The result is
+      returned as a stream. It is important that the stream is closed after
+      usage as resource leaks otherwise will occur.</p><pre class="programlisting">ViewQuery query = <b class="hl-keyword">new</b> ViewQuery()
+                       .designDocId(<b class="hl-string"><i style="color:red">"_design/somedoc"</i></b>)
+                       .viewName(<b class="hl-string"><i style="color:red">"view_with_huge_result"</i></b>);
+
+InputStream data = db.queryForStream(query);
+...
+data.close();</pre></div><div class="section" title="Complex Keys"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e889"></a>Complex Keys</h2></div></div></div><p>If your views produce complex keys such as [2010, 6, 1], you
+      should construct your key through the class
+      <span class="emphasis"><em>org.ektorp.ComplexKey</em></span></p><pre class="programlisting">ComplexKey start = ComplexKey.of(<span class="hl-number">2010</span>, <span class="hl-number">6</span>, <span class="hl-number">1</span>);
+ComplexKey end = ComplexKey.of(<span class="hl-number">2010</span>, <span class="hl-number">10</span>, <span class="hl-number">1</span>);
+        
+ViewQuery query = <b class="hl-keyword">new</b> ViewQuery()
+                       .designDocId(<b class="hl-string"><i style="color:red">"_design/Order"</i></b>)
+                       .viewName(<b class="hl-string"><i style="color:red">"by_orderDate"</i></b>)
+                       .startKey(start)
+                       .endKey(end);</pre><p>If you want to use a wild
+      card in your key, often used in date ranges, add a
+      <span class="emphasis"><em>ComplexKey.emptyObject()</em></span>:</p><pre class="programlisting">    <i class="hl-comment" style="color: silver">// will render to [2010, {}]</i>
+    ComplexKey allOf2<span class="hl-number">010</span> = ComplexKey.of(<span class="hl-number">2010</span>, ComplexKey.emptyObject());</pre></div></div><div class="chapter" title="Chapter&nbsp;9.&nbsp;Change Notifications"><div class="titlepage"><div><div><h2 class="title"><a name="d0e904"></a>Chapter&nbsp;9.&nbsp;Change Notifications</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e925">Continuous changes</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e937">Managing the Feed</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e944">Snapshots</a></span></dt></dl></div><p>As of Ektorp 1.1.0 the <a class="link" href="http://wiki.apache.org/couchdb/HTTP_database_API#Changes" target="_top">CouchDB
+    changes API</a> is supported.</p><p>Ektorp provides two different methods to access the database
+    changes:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>Continuous changes feed enables your application to listen to
+        change events as they happen in the database in real time.</p></li><li class="listitem"><p>Snapshots that provides all changes since a specific database
+        sequence number.</p></li></ul></div><p>Both methods are specified through a ChangesCommand:</p><pre class="programlisting">ChangesCommand cmd = <b class="hl-keyword">new</b> ChangesCommand.Builder()
+                             .includeDocs(true)
+                             .build();</pre><div class="section" title="Continuous changes"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e925"></a>Continuous changes</h2></div></div></div><p>Ektorp provides a continuous changes feed through the class
+      <span class="emphasis"><em>org.ektorp.changes.ChangesFeed</em></span>. The ChangesFeed
+      provides an API that is similar to a BlockingQueue:</p><pre class="programlisting">ChangesCommand cmd = <b class="hl-keyword">new</b> ChangesCommand.Builder().build();
+
+ChangesFeed feed = db.changesFeed(cmd);
+
+<b class="hl-keyword">while</b> (feed.isAlive()) {
+    DocumentChange change = feed.next();
+    String docId = change.getId();
+    ...
+}
+</pre><p>If you don't want to wait indefinitely for changes the ChangesFeed
+      class provides a variant if the feed method where a time out can be
+      specified.</p><div class="section" title="Managing the Feed"><div class="titlepage"><div><div><h3 class="title"><a name="d0e937"></a>Managing the Feed</h3></div></div></div><p>As long as the feed is alive it will continue to buffer changes
+        coming from the database. This will happen regardless if any thread is
+        draing the feed though calls to next(). This means that your
+        application might experience OutOfMemoryError if a feed is left
+        unattended.</p><p>To kill a feed just call the cancel() method provided by the
+        ChangesFeed class.</p></div></div><div class="section" title="Snapshots"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e944"></a>Snapshots</h2></div></div></div><p>If continuous notifications are not needed, the database can be
+      queried through the <span class="emphasis"><em>changes</em></span> method in
+      CouchDbConnector:</p><pre class="programlisting"><b class="hl-keyword">int</b> dbSequenceNumber = ... <i class="hl-comment" style="color: silver">// is available in the class org.ektorp.DbInfo obtained through db.getDbInfo();</i>
+
+ChangesCommand cmd = <b class="hl-keyword">new</b> ChangesCommand.Builder()
+                         .since(dbSequenceNumber)
+                         .build();
+
+List&lt;DocumentChange&gt; changes = db.changes(cmd);
+<b class="hl-keyword">for</b>(DocumentChange change : changes) {
+    ...
+}</pre></div></div><div class="chapter" title="Chapter&nbsp;10.&nbsp;Admin Functions"><div class="titlepage"><div><div><h2 class="title"><a name="d0e954"></a>Chapter&nbsp;10.&nbsp;Admin Functions</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e958">Database Replication</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e974">Initiate Replication from CouchDbInstance</a></span></dt><dt><span class="section"><a href="#d0e992">Initiate Replication from CouchDbConnector</a></span></dt></dl></dd></dl></div><p></p><div class="section" title="Database Replication"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e958"></a>Database Replication</h2></div></div></div><p>Database replication can be initiated through in two ways:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>The replicate method in
+          <span class="emphasis"><em>CouchDbInstance.</em></span></p></li><li class="listitem"><p>The replicateTo and replicateFrom methods in
+          <span class="emphasis"><em>CouchDbConnector.</em></span></p></li></ul></div><div class="section" title="Initiate Replication from CouchDbInstance"><div class="titlepage"><div><div><h3 class="title"><a name="d0e974"></a>Initiate Replication from CouchDbInstance</h3></div></div></div><p>The replication job is defined in the class
+        <span class="emphasis"><em>org.ektorp.ReplicationCommand</em></span>. The command is
+        created by its companion builder class:
+        <span class="emphasis"><em>org.ektorp.ReplicationCommand.Builder</em></span>:</p><pre class="programlisting">CouchDbInstance dbInstance = ...
+
+ReplicationCommand cmd = <b class="hl-keyword">new</b> ReplicationCommand.Builder()
+                                 .source(<b class="hl-string"><i style="color:red">"example-database"</i></b>)
+                                 .target(<b class="hl-string"><i style="color:red">"http://example.org/example-database"</i></b>)
+                                 .build();
+
+ReplicationStatus status = dbInstance.replicate(cmd);</pre><p>ReplicationCommand supports all replication parameters defined
+        in the <a class="link" href="http://wiki.apache.org/couchdb/Replication" target="_top">CouchDb
+        reference documentation</a>.</p></div><div class="section" title="Initiate Replication from CouchDbConnector"><div class="titlepage"><div><div><h3 class="title"><a name="d0e992"></a>Initiate Replication from CouchDbConnector</h3></div></div></div><p>Replications can be initiated from a
+        <span class="emphasis"><em>CouchDbConnector</em></span>, in this case one database
+        involved in the replication is the database the
+        <span class="emphasis"><em>CouchDbConnector</em></span> is connected to.</p><pre class="programlisting">CouchDbConnector db = ...
+
+ReplicationStatus status = db.replicateFrom(<b class="hl-string"><i style="color:red">"example-database"</i></b>);
+
+<i class="hl-comment" style="color: silver">// or</i>
+
+ReplicationStatus status2 = db.replicateTo(<b class="hl-string"><i style="color:red">"http://example.org/example-database"</i></b>);</pre><p>The methods in <span class="emphasis"><em>CouchDbConnector</em></span> will start
+        basic one time replications, for more advanced options use the
+        replicate method in <span class="emphasis"><em>CouchDbInstance</em></span>.</p></div></div></div><div class="chapter" title="Chapter&nbsp;11.&nbsp;Spring Integration"><div class="titlepage"><div><div><h2 class="title"><a name="d0e1013"></a>Chapter&nbsp;11.&nbsp;Spring Integration</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e1017">HttpClientFactoryBean</a></span></dt><dt><span class="section"><a href="#d0e1030">Bootstrapping the Database</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1043">Declaing the InitialDataLoader in the Application
+        Context</a></span></dt><dt><span class="section"><a href="#d0e1050">Component Scanning</a></span></dt><dt><span class="section"><a href="#d0e1060">DataLoader</a></span></dt></dl></dd></dl></div><p></p><div class="section" title="HttpClientFactoryBean"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e1017"></a>HttpClientFactoryBean</h2></div></div></div><p>The class org.ektorp.spring.HttpClientFactoryBean provides an easy
+      way to configure a HttpClient in the application context.</p><p>When added to the appllication context, the factory will read
+      configuration from couchdbProperties defined in the application
+      context:</p><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"&gt;
+
+    &lt;util:properties id="couchdbProperties" location="classpath:/couchdb.properties"/&gt;
+
+    &lt;bean id="httpClient" class="org.ektorp.spring.HttpClientFactoryBean" /&gt;
+
+    &lt;bean id="couchDbInstance" class="org.ektorp.impl.StdCouchDbInstance"&gt;
+        &lt;constructor-arg ref="httpClient"/&gt;
+    &lt;/bean&gt;
+
+    &lt;bean id="initialDataLoader" class="org.ektorp.spring.InitialDataLoader" autowire="byType" init-method="loadData"/&gt;
+
+&lt;/beans&gt;</pre><p>And here is a couchdb.properties to cut &amp; paste:</p><pre class="programlisting">host=localhost
+port=5984
+maxConnections=20
+connectionTimeout=1000
+socketTimeout=10000
+username=CouchDB_Admin
+password=geheimnis</pre></div><div class="section" title="Bootstrapping the Database"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e1030"></a>Bootstrapping the Database</h2></div></div></div><p>The Ektorp Spring module features a class for loading the database
+      with documents at application startup.</p><p>The <span class="emphasis"><em>org.ektorp.spring.InitialDataLoader</em></span> will
+      lookup all beans in the application context that implements
+      <span class="emphasis"><em>org.ektorp.dataload.DataLoader</em></span> (typically your
+      repositories) and feed them data streams loaded from locations specified
+      by the DataLoaders themselves.</p><div class="section" title="Declaing the InitialDataLoader in the Application Context"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1043"></a>Declaing the InitialDataLoader in the Application
+        Context</h3></div></div></div><p>The InitialDataLoader work best if its dependencies are
+        autowired. (Otherwise you will have to maintain the list of
+        DataLoaders manually).</p><pre class="programlisting"><b class="hl-tag" style="color: #000096">&lt;bean</b> <span class="hl-attribute" style="color: #F5844C">class</span>=<span class="hl-value" style="color: #993300">"org.ektorp.spring.InitialDataLoader"</span> <span class="hl-attribute" style="color: #F5844C">autowire</span>=<span class="hl-value" style="color: #993300">"constructor"</span><b class="hl-tag" style="color: #000096">/&gt;</b></pre></div><div class="section" title="Component Scanning"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1050"></a>Component Scanning</h3></div></div></div><p>The InitialDataLoader will be created automatically if you
+        include the <span class="emphasis"><em>org.ektorp.spring</em></span> package in your
+        component scan directive:</p><pre class="programlisting">&lt;context:component-scan base-package="org.example"&gt;
+    &lt;context:include-filter type="regex" expression="org\.ektorp\.spring.*"/&gt;
+&lt;/context:component-scan&gt;</pre></div><div class="section" title="DataLoader"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1060"></a>DataLoader</h3></div></div></div><p>The dataloader points out its data locations through the method
+        String[] getDataLocations(). The location is loaded though Spring's
+        <a class="link" href="http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/resources.html" target="_top">resource
+        loader</a> so paths like
+        <span class="emphasis"><em>"classpath:/my_initial_docs.json"</em></span> are expected.
+        The DataLoader can then process the data in the loadInitialData
+        method.</p><pre class="programlisting"><b class="hl-keyword">import</b> org.ektorp.dataload.*;
+<b class="hl-keyword">import</b> org.ektorp.support.*;
+
+<b class="hl-keyword">class</b> SofaRepository <b class="hl-keyword">extends</b> CouchDbRepositorySupport&lt;Sofa&gt; <b class="hl-keyword">implements</b> DataLoader {
+
+    <b class="hl-keyword">private</b> <b class="hl-keyword">final</b> <b class="hl-keyword">static</b> String[] INITIAL_DATA_PATH = {<b class="hl-string"><i style="color:red">"classpath:/init_sofa_data.json"</i></b>};
+
+    <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> loadInitialData(Reader in) {
+        <b class="hl-keyword">new</b> DefaultDataLoader(db).load(in);
+    }
+  
+    <b class="hl-keyword">public</b> String[] getDataLocations() {
+        <b class="hl-keyword">return</b> INITIAL_DATA_PATH;
+    }
+
+    <b class="hl-tag" style="color: blue">/**
+    * Is called when all DataLoaders in the system has loaded it&acute;s data.
+    */</b>
+    <b class="hl-keyword">public</b> <b class="hl-keyword">void</b> allDataLoaded() {
+
+    }
+}</pre></div></div></div></div></body></html>
